@@ -12,9 +12,14 @@ pipeline {
                 bat 'npm install'
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t devops-app:${BUILD_NUMBER} .'
+            }
+        }
         stage('Run App') {
             steps {
-                bat 'node app.js'
+                bat 'docker run -d -p 3000:3000 devops-app:${BUILD_NUMBER}'
             }
         }
     }
