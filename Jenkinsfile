@@ -1,26 +1,33 @@
 pipeline {
-    agent any
+  agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/kavinayaravi/devops-ci-cd-pipeline.git'
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                bat 'npm install'
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                bat 'docker build -t devops-app:${BUILD_NUMBER} .'
-            }
-        }
-        stage('Run App') {
-            steps {
-                bat 'docker run -d -p 3000:3000 devops-app:${BUILD_NUMBER}'
-            }
-        }
+  stages {
+    stage('Checkout Code') {
+      steps {
+        git branch: 'main', url: 'https://github.com/kavinayaravi/devops-ci-cd-pipeline.git'
+      }
     }
+
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t devops-app:latest .'
+      }
+    }
+
+    stage('Stop Old Container') {
+      steps {
+        sh '''
+        docker rm -f devops-app || true
+        '''
+      }
+    }
+
+    stage('Run New Container') {
+      steps {
+        sh '''
+        docker run -d --name devops-app -p 3002:3000 devops-app:latest
+        '''
+      }
+    }
+  }
 }
