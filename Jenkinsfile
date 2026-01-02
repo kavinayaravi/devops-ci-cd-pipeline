@@ -25,7 +25,8 @@ pipeline {
     stage('Run New Container') {
       steps {
         sh '''
-        docker run -d --name devops-app -p 3002:3000 devops-app:latest
+        docker run -d --name devops-app -p 3001:3000 devops-app:1.0
+
         '''
       }
     }
