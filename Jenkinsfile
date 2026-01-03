@@ -10,13 +10,13 @@ pipeline {
 
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t devops-app:latest .'
+        bat 'docker build -t devops-app:latest .'
       }
     }
 
     stage('Stop Old Container') {
       steps {
-        sh '''
+        bat '''
         docker rm -f devops-app || true
         '''
       }
@@ -24,7 +24,7 @@ pipeline {
 
     stage('Run New Container') {
       steps {
-        sh '''
+        bat '''
         docker run -d --name devops-app -p 3001:3000 devops-app:1.0
 
         '''
