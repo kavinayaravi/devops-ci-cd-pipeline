@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('DevOps Pipeline Working');
+  res.send('DevOps Pipeline Working v2 🚀');
 });
 
 app.get('/metrics', async (req, res) => {
