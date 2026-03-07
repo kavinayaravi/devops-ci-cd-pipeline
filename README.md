@@ -26,4 +26,4 @@ Reduced manual intervention
 
 👩‍💻 Author
 R. Kavinaya
-CSE Student | DevOps Enthusiast
+CSE Student | DevOps Enthusiast | Aspiring Software Engineer
